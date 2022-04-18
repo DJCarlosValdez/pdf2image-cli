@@ -1,0 +1,2 @@
+pdf2image==1.16.0
+-e git+https://github.com/DJCarlosValdez/pdf2image-cli.git@4d1e6cf462eecdade1a0983d7a0219ca5ad26c6c#egg=pdf2image_cli

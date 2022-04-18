@@ -4,7 +4,6 @@ import argparse
 from enum import IntEnum, unique
 import pathlib
 from typing import List
-from PIL import Image
 
 from .status import ExitStatus
 
@@ -24,10 +23,8 @@ class PathType(IntEnum):
 
 def pathQuery(path: pathlib.Path) -> PathType:
     if os.path.exists(path) and os.path.isfile(path):
-        print("Path is a file")
         return PathType.FILE
     elif os.path.exists(path) and os.path.isdir(path):
-        print("Path is a directory")
         return PathType.FOLDER
     else:
         raise Exception("Path does not exist")
@@ -48,6 +45,7 @@ def extractImages(path: pathlib.Path, output: pathlib.Path, imageType):
             output.mkdir()
             print(f'{output} folder created')
 
+        print(f'\nConverting {path.name}')
         images = convert_from_path(path, fmt=imageType)
         i = 0
 
@@ -55,7 +53,7 @@ def extractImages(path: pathlib.Path, output: pathlib.Path, imageType):
             pdfName = path.name.replace('.pdf', '')
             fileName = pathlib.Path(output, f'{pdfName}_{i}.{imageType}')
             image.save((fileName))
-            print(f"File: {str(fileName)} saved")
+            print(f"Image: {str(fileName)} saved")
             i += 1
 
     except Exception as e:
